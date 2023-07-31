@@ -8,12 +8,7 @@ public class PositionView : MonoBehaviour, IPointerClickHandler
 {
     public EventHandler Clicked;
 
-    public Vector3 _tilePosition;
-
-    private void OnEnable()
-    {
-        _tilePosition = transform.position;
-    }
+    public Position TilePosition => TileHelper.WorldToTilePosition(transform.position);
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -22,7 +17,7 @@ public class PositionView : MonoBehaviour, IPointerClickHandler
 
     protected virtual void OnClicked(EventArgs eventArgs)
     {
-        Debug.Log(_tilePosition);
+        Debug.Log(TilePosition.ToString());
         var handler = Clicked;
         handler?.Invoke(this, eventArgs);
     }
