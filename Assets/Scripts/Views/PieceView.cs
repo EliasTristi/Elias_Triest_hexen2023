@@ -12,6 +12,7 @@ public class PieceView : MonoBehaviour
 
     public void Move(Vector3 toPosition)
     {
+        toPosition.y = transform.position.y;
         transform.position = toPosition;
     }
 
@@ -22,6 +23,7 @@ public class PieceView : MonoBehaviour
 
     public void Place(Vector3 worldPosition)
     {
+        worldPosition.y = transform.position.y;
         transform.position = worldPosition;
         gameObject.SetActive(true);
     }
