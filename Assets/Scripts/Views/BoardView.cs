@@ -19,10 +19,13 @@ public class BoardView : MonoBehaviour
     public event EventHandler<PositionEventArgs> PositionClicked;
 
     private Dictionary<Position, PositionView> _positionViews = new Dictionary<Position, PositionView>();
+    
     private List<Position> _activePositions = new List<Position>();
 
+    private List<Position> _tilePositions = new List<Position>();
+    public List<Position> ActivePositions => _tilePositions;
 
-    public List<Position> ActivePositions
+    public List<Position> SetActivePositions
     {
         set
         {
@@ -46,6 +49,7 @@ public class BoardView : MonoBehaviour
         foreach(var view in views)
         {
             _positionViews.Add(view.TilePosition, view);
+            _tilePositions.Add(view.TilePosition);
         }
     }
 

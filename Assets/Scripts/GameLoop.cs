@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
-    private Board _board;
     private Deck _deck;
+    private Board _board;
+    private Engine _engine;
     private PieceView _player;
+    private BoardView _boardView;
+
+    private PieceView[] _pieces;
 
     [SerializeField]
     private GameObject _entity;
     [SerializeField]
     private int _entityAmount = 8;
+
 
     void Start()
     {
@@ -29,45 +34,30 @@ public class GameLoop : MonoBehaviour
         foreach (var pieceView in pieceViews)
             _board.Place(TileHelper.WorldToTilePosition(pieceView.WorldPosition), pieceView);
 
-        var boardView = FindObjectOfType<BoardView>();
-        boardView.PositionClicked += OnPositionClicked;
+        PieceView player = null;
 
         foreach(var view in pieceViews)
         {
             if (view.Player == Player.Player)
             {
-                _player = view;
+                player = view;
                 break;
             }
         }
+
+        _pieces = pieceViews;
+
+        var boardView = FindObjectOfType<BoardView>();
+        boardView.PositionClicked += OnPositionClicked;
+
+        _boardView = boardView;
+
+        _engine = new Engine(_deck, _board, player, _pieces, _boardView);
+        _deck.DeckSetup(_engine);
     }
 
     private void OnPositionClicked(object sender, PositionEventArgs e)
     {
-        var cards = FindObjectsOfType<Card>();
-
-        foreach (var card in cards)
-        {
-            if (card.IsPlayed)
-            {
-                switch (card.CardType)
-                {
-                    case CardType.Laser:
-
-                        break;
-                    case CardType.Teleport: 
-                        _board.Move(TileHelper.WorldToTilePosition(_player.WorldPosition), e.Position);
-                        break;
-                    case CardType.Push:
-                        
-                        break;
-                    case CardType.Slash:
-                        
-                        break;
-                }
-            }
-        }
-
-        _deck.DeckUpdate();
+        _engine.CardLogic(e.Position);
     }
 }

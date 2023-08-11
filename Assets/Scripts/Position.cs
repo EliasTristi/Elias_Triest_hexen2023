@@ -20,4 +20,14 @@ public struct Position
     {
         return $"Position(q: {q}, r: {r})";
     }
+
+    public static bool operator ==(Position left, Position right)
+    {
+        return left._q == right._q && left._r == right._r;
+    }
+
+    public static bool operator !=(Position left, Position right)
+    {
+        return !(left == right);
+    }
 }

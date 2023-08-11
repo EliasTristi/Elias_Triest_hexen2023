@@ -53,4 +53,14 @@ public class HexHelper : MonoBehaviour
     {
         return (Mathf.Abs(A.q - B.q) + Mathf.Abs(A.q + A.r - B.q - B.r) + Mathf.Abs(A.r - B.r)) / 2;
     }
+
+    public static Position AxialAdd(Position A, Position B)
+    {
+        return new Position(A.q + B.q, A.r + B.r);
+    }
+
+    public static Position AxialSubstract(Position A, Position B)
+    {
+        return new Position(A.q - B.q, A.r - B.r);
+    }
 }

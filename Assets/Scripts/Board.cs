@@ -56,13 +56,7 @@ public class Board : MonoBehaviour
     public bool TryGetPiece(Position position, out PieceView piece)
         => _pieces.TryGetValue(position, out piece);
 
-    public bool IsValid(Position position) => 
-        (
-            0 <= Mathf.Abs(position.q) 
-            && Mathf.Abs(position.q) <= _distance 
-            && 0 <= Mathf.Abs(position.r) 
-            && Mathf.Abs(position.r) <= _distance
-        );
+    public bool IsValid(Position position) => (_distance >= HexHelper.AxialDistance(new Position(0, 0), position));
 
 
     public bool Move(Position fromPosition, Position toPosition)
@@ -92,7 +86,6 @@ public class Board : MonoBehaviour
             return false;
 
         _pieces.Remove(fromPosition);
-        //piece.Take();
 
         OnPieceTaken(new PieceTakenEventArgs(fromPosition, piece));
 

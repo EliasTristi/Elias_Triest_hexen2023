@@ -16,7 +16,7 @@ public class Deck : MonoBehaviour
     private GameObject[] _prefabs;
     private GameObject[] _cards;
 
-    private void Start()
+    public void DeckSetup(Engine engine)
     {
         _cards = new GameObject[_deckSize];
 
@@ -24,6 +24,7 @@ public class Deck : MonoBehaviour
         {
             var card = Instantiate(_prefabs[Random.Range(0, _prefabs.Length)], transform);
             card.SetActive(false);
+            card.GetComponent<Card>().Engine = engine;
             _cards[i] = card;
         }
 
