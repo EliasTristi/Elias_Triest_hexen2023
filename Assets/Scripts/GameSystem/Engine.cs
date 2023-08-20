@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Engine : MonoBehaviour
@@ -30,8 +32,20 @@ public class Engine : MonoBehaviour
         {
             if (card.IsPlayed)
             {
-                if (card.CardType ==CardType.Teleport)
+                if (card.CardType == CardType.Teleport)
                     card.IsPlayed = _board.Move(TileHelper.WorldToTilePosition(_player.WorldPosition), position);
+                else if (card.CardType == CardType.Meteor)
+                {
+                    var positionGroups = MoveSetCollection.GetValidTilesForMeteor(position, _board);
+                    foreach (var validPositions in positionGroups)
+                    {
+                        foreach (var validPosition in validPositions)
+                        {
+                            _board.Take(validPosition);
+                        }
+                    }
+
+                }
                 else if (card.CardType == CardType.Laser)
                     foreach (var selectedPos in _selectedPositions)
                         _board.Take(selectedPos);
@@ -101,6 +115,8 @@ public class Engine : MonoBehaviour
             return MoveSetCollection.GetValidTilesForShoot(_player, _board);
         else if (cardType == CardType.Slash || cardType == CardType.Push)
             return MoveSetCollection.GetValidTilesForCone(_player, _board);
+        else if (cardType == CardType.Meteor)
+            return MoveSetCollection.GetAllTiles(_board);
 
         return null;
     }
@@ -140,6 +156,18 @@ public class Engine : MonoBehaviour
                         }
                     }
                 }
+                break;
+            case CardType.Meteor:
+                var positionGroup = MoveSetCollection.GetValidTilesForMeteor(position, _board);
+                var positionList = new List<Position>();
+                
+                foreach (var posList in positionGroup)
+                {
+                    positionList.AddRange(posList);
+                }
+
+                positionList.Add(position);
+                SetActivePositions(positionList);
                 break;
             default:
                 _selectedPositions = new List<Position>();

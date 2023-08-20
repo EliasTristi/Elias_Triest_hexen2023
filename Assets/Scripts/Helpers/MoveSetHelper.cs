@@ -14,11 +14,11 @@ public class MoveSetHelper : MonoBehaviour
 
     public MoveSetHelper(Board board, Position position)
     {
-        if (board.TryGetPiece(position, out var piece)) { }
+        //if (board.TryGetPiece(position, out var piece)) { }
 
         _board = board;
         _position = position;
-        _player = piece.Player;
+        _player = Player.Player;
     }
 
     public List<Position> CollectValidPositions()

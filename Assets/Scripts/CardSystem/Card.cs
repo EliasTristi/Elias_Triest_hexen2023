@@ -35,12 +35,12 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         {
             _validPositions = Engine.GetValidPositions(cardType);
         }
-        else if (cardType == CardType.Laser || cardType == CardType.Slash || cardType == CardType.Push)
+        else if (cardType == CardType.Laser || cardType == CardType.Slash || cardType == CardType.Push || cardType == CardType.Meteor)
         {
             _validPositionGroups = Engine.GetValidPositionGroups(cardType);
             validPositionGroupsToValidPositions();
         }
-        
+
         IsHolding = true;
     }
 
