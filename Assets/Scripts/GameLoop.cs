@@ -14,11 +14,11 @@ public class GameLoop : MonoBehaviour
     private PieceView[] _pieces;
 
     private StateMachine _stateMachine;
+    public StateMachine StateMachine => _stateMachine;
 
     [SerializeField]
     private GameObject _entity;
-    [SerializeField]
-    private int _entityAmount = 8;
+    public int _entityAmount = 8;
 
 
     void Start()
@@ -26,7 +26,9 @@ public class GameLoop : MonoBehaviour
         //_stateMachine = new StateMachine();
         //_stateMachine.Register(States.Player, new PlayerState(_entity, _entityAmount));
         //_stateMachine.Register(States.Enemy, new EnemyState());
-        //_stateMachine.ChangeTo(States.Player);
+        //_stateMachine.InitialState = States.Player;
+        //foreach (var state in _stateMachine._states)
+        //    Debug.Log(state.ToString());
 
         _deck = FindObjectOfType<Deck>();
         _board = new Board(TileHelper.Distance);

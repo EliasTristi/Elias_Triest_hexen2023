@@ -16,6 +16,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private GameObject _copy;
 
     private Position _selectedPosition;
+    public State State;
 
     private List<Position> _validPositions = new List<Position>();
     private List<List<Position>> _validPositionGroups = new List<List<Position>>();
@@ -74,6 +75,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             Destroy(_copy);
             IsPlayed = true;
             view.OnPointerClick(eventData);
+
+            //call event to invoke OnExit from playerstate
         }
         else if (hit.collider.gameObject.layer == tileLayer && cardType == CardType.Blitz)
         {
@@ -82,6 +85,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             Destroy(_copy);
             IsPlayed = true;
             view.OnPointerClick(eventData);
+
+            //call event to invoke OnExit from playerstate
         }
         else
             Destroy(_copy);
@@ -108,5 +113,15 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
                 _validPositions.Add(validPosition);
             }
         }
+    }
+
+    public EventHandler PlayClicked;
+
+    public void Play() => OnPlayClicked(EventArgs.Empty);
+
+    private void OnPlayClicked(EventArgs e)
+    {
+        var handler = PlayClicked;
+        handler?.Invoke(this, e);
     }
 }

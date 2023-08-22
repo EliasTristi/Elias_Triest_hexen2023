@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EnemyState : State
 {
+
     public override void OnEnter()
     {
         base.OnEnter();
+
+        Debug.Log("in enemy state");
+
+
+        this.OnExit();
     }
 
     public override void OnExit()

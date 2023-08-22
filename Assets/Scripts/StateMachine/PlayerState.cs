@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,6 +59,10 @@ public class PlayerState : State
 
         _engine = new Engine(_deck, _board, player, _pieces, _boardView);
         _deck.DeckSetup(_engine);
+
+        var cards = FindObjectsOfType<Card>();
+        foreach (var card in cards)
+            card.State = this;
     }
 
     public override void OnExit()
@@ -67,8 +72,10 @@ public class PlayerState : State
         if (_boardView != null)
             _boardView.PositionClicked -= OnPositionClicked;
 
+
         var sm = new StateMachine();
         sm.ChangeTo(States.Enemy);
+        Debug.Log($"changed to {States.Enemy}");
     }
 
     private void OnPositionClicked(object sender, PositionEventArgs e)

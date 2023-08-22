@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    private Dictionary<string, State> _states = new Dictionary<string, State>();
+    public Dictionary<string, State> _states = new Dictionary<string, State>();
 
-    private string _currentState;
-    public State CurrentState => _states[_currentState];
+    private string _currentStateName;
 
     public string InitialState
     {
         set
         {
-            _currentState = value;
+            _currentStateName = value;
+            Debug.Log(_currentStateName);
             CurrentState.OnEnter();
         }
     }
+    public State CurrentState => _states[_currentStateName];
 
     public void Register(string stateName, State state)
     {
@@ -27,8 +28,8 @@ public class StateMachine : MonoBehaviour
     public void ChangeTo(string stateName)
     {
         CurrentState.OnExit();
-        _currentState = stateName;
+        _currentStateName = stateName;
         CurrentState.OnEnter();
-        Debug.Log($"changed state to {_currentState}");
+        Debug.Log($"changed state to {_currentStateName}");
     }
 }

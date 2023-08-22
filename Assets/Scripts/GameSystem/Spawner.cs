@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
             var position = _validPositions[Random.Range(0, _validPositions.Count)];
             Instantiate(entity, TileHelper.TileToWorldPosition(position), entity.transform.rotation);
             _validPositions.Remove(position);
-            Debug.Log($"Entity placed at {position.ToString()}");
+            //Debug.Log($"Entity placed at {position.ToString()}");
         }
     }
 }

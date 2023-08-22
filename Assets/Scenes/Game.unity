@@ -168,10 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabs:
-  - {fileID: 6108248296246282885, guid: f02a255e85806bb48bcec69a39dd3ee1, type: 3}
+  - {fileID: 5766169665815323586, guid: 0f6063814d1fb494e8737e3fef1396b9, type: 3}
+  - {fileID: 6108248296246282885, guid: 74b2caf85e62865478776f06102443be, type: 3}
   - {fileID: 6108248296246282885, guid: 1816dc7b3d6eadf47ad6b48e8f5929f4, type: 3}
   - {fileID: 6108248296246282885, guid: d413af3be20451242a825bb66ae33f43, type: 3}
-  - {fileID: 6108248296246282885, guid: 74b2caf85e62865478776f06102443be, type: 3}
+  - {fileID: 6108248296246282885, guid: f02a255e85806bb48bcec69a39dd3ee1, type: 3}
 --- !u!1 &302410393
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: {fileID: 7667501706125050069, guid: 7856d68863070c146a76524ab666fc2b, type: 3}
-  _entityAmount: 8
+  _entityAmount: 5
 --- !u!4 &801696368
 Transform:
   m_ObjectHideFlags: 0

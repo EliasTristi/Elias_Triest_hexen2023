@@ -1,6 +1,7 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Engine : MonoBehaviour
@@ -174,22 +175,22 @@ public class Engine : MonoBehaviour
         }
     }
 
-    //internal List<PieceView> GetBlitzPieces(Position position)
+    //public void ChangeEnemies()
     //{
-    //    var tempEnemies = new List<PieceView>();
-    //    var tiles = FindObjectsOfType<PositionView>();
+    //    var allEnemies = _enemies.ToList();
+    //    var visibleEnemies = new List<PieceView>();
 
-    //    foreach (var enemy in _enemies)
+    //    foreach (var enemy in allEnemies)
     //    {
-    //        foreach(var pos in tiles)
-    //        {
-    //            if (HexHelper.AxialRing(position, 2).Contains(TileHelper.WorldToTilePosition(enemy.WorldPosition)))
-    //            {
-    //                tempEnemies.Add(enemy);
-    //            }
-    //        }
+    //        if (enemy.isActiveAndEnabled && enemy.Player != Player.Player)
+    //            visibleEnemies.Add(enemy);
     //    }
 
-    //    return tempEnemies;
+    //    foreach (var enemy in visibleEnemies)
+    //    {
+    //        enemy.gameObject.SetActive(false);
+    //    }
+
+    //    Spawner.EntitySpawner(_entity, visibleEnemies.Count);
     //}
 }
