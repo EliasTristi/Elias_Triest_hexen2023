@@ -49,7 +49,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         _copy.transform.position = eventData.position;
         var mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(mousePos, out var hit) && hit.collider.gameObject.layer == tileLayer /*&& IsDraggingOverValidTiles(hit)*/)
+        if (Physics.Raycast(mousePos, out var hit) && hit.collider.gameObject.layer == tileLayer)
         {
             var view = hit.transform.gameObject.GetComponent<PositionView>();
             Engine.SetHighlights(view.TilePosition, CardType, _validPositions, _validPositionGroups);
@@ -62,7 +62,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         var mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(mousePos, out var hit) && hit.collider.gameObject.layer == tileLayer /*&& IsDraggingOverValidTiles(hit)*/)
+        if (Physics.Raycast(mousePos, out var hit) && hit.collider.gameObject.layer == tileLayer && IsDraggingOverValidTiles(hit))
         {
             var view = hit.transform.gameObject.GetComponent<PositionView>();
             _selectedPosition = view.TilePosition;
