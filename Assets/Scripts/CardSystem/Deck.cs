@@ -16,6 +16,9 @@ public class Deck : MonoBehaviour
     private GameObject[] _prefabs;
     private GameObject[] _cards;
 
+    private Card _newCard;
+    public Card NewCard => _newCard;
+
     public void DeckSetup(Engine engine)
     {
         _cards = new GameObject[_deckSize];
@@ -64,7 +67,7 @@ public class Deck : MonoBehaviour
 
             startPosition += _spacing;
         }
-
+        _newCard = tempCards[tempCards.Count - 1].GetComponent<Card>();
         _cards = tempCards.ToArray();
     }
 

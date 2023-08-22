@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Engine : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class Engine : MonoBehaviour
     private PieceView[] _enemies;
     private BoardView _boardView;
 
+    private Card _usedCard;
+    private Card _newCard;
+    private Undo _undo;
+
     private List<Position> _selectedPositions;
+
     public List<Position> SelectedPositions => _selectedPositions;
 
     public Engine(Deck deck, Board board, PieceView player, PieceView[] enemies, BoardView boardView)
@@ -54,10 +60,15 @@ public class Engine : MonoBehaviour
                     card.IsPlayed = false;
                     return;
                 }
+
+                _usedCard = card;
             }
         }
         _deck.DeckUpdate();
+        _newCard = _deck.NewCard;
     }
+
+    public void UndoAction() => _undo.UndoAction(_usedCard, _newCard);
 
     internal void SetActivePositions(List<Position> positions)
     {

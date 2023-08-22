@@ -56,6 +56,8 @@ public class GameLoop : MonoBehaviour
         _deck.DeckSetup(_engine);
     }
 
+    public void Undo() => _engine.UndoAction();
+
     private void OnPositionClicked(object sender, PositionEventArgs e)
     {
         _engine.CardLogic(e.Position);
