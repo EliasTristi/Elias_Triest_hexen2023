@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLoop : MonoBehaviour
+public class PlayerState : State
 {
     private Deck _deck;
     private Board _board;
@@ -13,20 +12,18 @@ public class GameLoop : MonoBehaviour
 
     private PieceView[] _pieces;
 
-    private StateMachine _stateMachine;
-
-    [SerializeField]
     private GameObject _entity;
-    [SerializeField]
-    private int _entityAmount = 8;
+    private int _entityAmount;
 
-
-    void Start()
+    public PlayerState(GameObject entity, int entityAmount)
     {
-        //_stateMachine = new StateMachine();
-        //_stateMachine.Register(States.Player, new PlayerState(_entity, _entityAmount));
-        //_stateMachine.Register(States.Enemy, new EnemyState());
-        //_stateMachine.ChangeTo(States.Player);
+        _entity = entity;
+        _entityAmount = entityAmount;
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
 
         _deck = FindObjectOfType<Deck>();
         _board = new Board(TileHelper.Distance);
@@ -61,6 +58,17 @@ public class GameLoop : MonoBehaviour
 
         _engine = new Engine(_deck, _board, player, _pieces, _boardView);
         _deck.DeckSetup(_engine);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        if (_boardView != null)
+            _boardView.PositionClicked -= OnPositionClicked;
+
+        var sm = new StateMachine();
+        sm.ChangeTo(States.Enemy);
     }
 
     private void OnPositionClicked(object sender, PositionEventArgs e)

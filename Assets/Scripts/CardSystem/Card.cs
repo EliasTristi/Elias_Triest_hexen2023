@@ -40,6 +40,11 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             _validPositionGroups = Engine.GetValidPositionGroups(cardType);
             validPositionGroupsToValidPositions();
         }
+        else if (cardType == CardType.Blitz)
+        {
+            _validPositions = Engine.GetValidPositions(cardType);
+            Debug.Log(_validPositions.Count);
+        }
         
         IsHolding = true;
     }

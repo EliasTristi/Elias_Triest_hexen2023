@@ -7,5 +7,6 @@ public enum CardType
     Laser,
     Teleport,
     Push,
-    Slash
+    Slash,
+    Blitz
 }
