@@ -102,7 +102,7 @@ public class Engine : MonoBehaviour
             {
                 foreach (var piece in _enemies)
                 {
-                    if (TileHelper.WorldToTilePosition(piece.WorldPosition) == position && piece.Player == Player.Enemy)
+                    if (TileHelper.WorldToTilePosition(piece.WorldPosition) == position && piece.Player == Player.Enemy && piece.isActiveAndEnabled)
                         positions.Add(position);
                 }
             }
@@ -130,9 +130,10 @@ public class Engine : MonoBehaviour
                 var validPos = new List<Position>();
                 foreach (var pos in validPositions)
                 {
-                    if (HexHelper.AxialRing(position, 2).Contains(pos))
+                    if (HexHelper.AxialRing(position, 2).Contains(pos) || HexHelper.AxialRing(position, 1).Contains(pos))
                         validPos.Add(pos);
                 }
+                _selectedPositions = validPos;
                 SetActivePositions(validPos);
                 break;
             case CardType.Teleport:

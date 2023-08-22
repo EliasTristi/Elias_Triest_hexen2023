@@ -43,7 +43,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         else if (cardType == CardType.Blitz)
         {
             _validPositions = Engine.GetValidPositions(cardType);
-            Debug.Log(_validPositions.Count);
+            //Debug.Log(_validPositions.Count);
         }
         
         IsHolding = true;
@@ -68,6 +68,14 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         var mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(mousePos, out var hit) && hit.collider.gameObject.layer == tileLayer && IsDraggingOverValidTiles(hit))
+        {
+            var view = hit.transform.gameObject.GetComponent<PositionView>();
+            _selectedPosition = view.TilePosition;
+            Destroy(_copy);
+            IsPlayed = true;
+            view.OnPointerClick(eventData);
+        }
+        else if (hit.collider.gameObject.layer == tileLayer && cardType == CardType.Blitz)
         {
             var view = hit.transform.gameObject.GetComponent<PositionView>();
             _selectedPosition = view.TilePosition;
